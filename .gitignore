@@ -1,0 +1,21 @@
+# Directorio y archivos generados por GoLand
+.idea/
+*.iml
+*.iws
+
+
+# Directorio y archivos generados por IntelliJ IDEA y otros IDEs de JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Directorio y archivos generados por Visual Studio Code
+.vscode/
+
+# Directorio y archivos generados por Eclipse
+.settings/
+.project
+.classpath
+
+# Agrega aquí otras reglas para otros IDEs si es necesario
