@@ -3,37 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"gestortareas/modelo"
 	"os"
 )
 
-type Task struct {
-	name        string
-	description string
-	complet     bool
-}
-
-type ListTask struct {
-	task []Task
-}
-
-func (listTask *ListTask) addTasck(task Task) {
-	listTask.task = append(listTask.task, task)
-}
-
-func (listTask *ListTask) markComplet(index int) {
-	listTask.task[index].complet = true
-}
-
-func (listTask *ListTask) editTask(index int, task Task) {
-	listTask.task[index] = task
-}
-
-func (listTask *ListTask) deleteTask(index int) {
-	listTask.task = append(listTask.task[:index], listTask.task[index+1:]...)
-}
-
 func main() {
-	listMytask := ListTask{}
+	listMytask := modelo.ListTask{}
 
 	leer := bufio.NewReader(os.Stdin)
 	for {
@@ -49,35 +24,35 @@ func main() {
 
 		switch option {
 		case 1:
-			var task Task
+			var task modelo.Task
 			fmt.Print("Ingerse el nombre de la tarea :")
-			task.name, _ = leer.ReadString('\n')
+			task.Name, _ = leer.ReadString('\n')
 			fmt.Print("Ingrese la descripcion de la tarea :")
-			task.description, _ = leer.ReadString('\n')
-			listMytask.addTasck(task)
+			task.Description, _ = leer.ReadString('\n')
+			listMytask.AddTasck(task)
 			fmt.Println("Tarea agregada correctamente")
 		case 2:
 			var index int
 			fmt.Print("Ingrese el indice de la tarea que desea marcar como completada :")
 			fmt.Scanln(&index)
-			listMytask.markComplet(index)
+			listMytask.MarkComplet(index)
 			fmt.Println("Tarea marcada correctamente")
 		case 3:
-			var task Task
+			var task modelo.Task
 			var index int
 			fmt.Println("Ingrese el indice de la tarea :")
 			fmt.Scanln(&index)
 			fmt.Print("Ingrese el nuevo nombre :")
-			task.name, _ = leer.ReadString('\n')
+			task.Name, _ = leer.ReadString('\n')
 			fmt.Print("Ingrese la nueva descripcion :")
-			task.description, _ = leer.ReadString('\n')
-			listMytask.editTask(index, task)
+			task.Description, _ = leer.ReadString('\n')
+			listMytask.EditTask(index, task)
 			fmt.Println("Tarea editada correctamente")
 		case 4:
 			var index int
 			fmt.Print("Ingrese el indice de la tarea :")
 			fmt.Scanln(&index)
-			listMytask.deleteTask(index)
+			listMytask.DeleteTask(index)
 			fmt.Println("Tarea eliminada correctamente")
 		case 5:
 			fmt.Println("Saleindo del sistema ...")
@@ -87,12 +62,12 @@ func main() {
 		}
 		fmt.Println("LISTA DE TAREAS")
 		fmt.Println("====================")
-		for index, task := range listMytask.task {
+		for index, task := range listMytask.GetArrTask() {
 			fmt.Printf("%d. %s - %s - Completado : %t\n",
 				index,
-				task.name,
-				task.description,
-				task.complet)
+				task.Name,
+				task.Description,
+				task.Complet)
 		}
 		fmt.Println("====================")
 	}
